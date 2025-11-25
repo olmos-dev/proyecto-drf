@@ -1,0 +1,19 @@
+# Entorno virtual
+venv/
+
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Base de datos local
+*.sqlite3
+
+# Variables de entorno
+.env
+
+# Archivos de migraciones (opcional, ver explicación abajo)
+*/migrations/__pycache__/
+*/migrations/*.py
+!*/migrations/__init__.py
