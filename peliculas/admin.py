@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Pelicula
+from .models import Contenido, Plataforma
 
 # Register your models here.
-admin.site.register(Pelicula)
+admin.site.register(Contenido)
+admin.site.register(Plataforma)
