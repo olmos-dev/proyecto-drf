@@ -4,7 +4,7 @@ from peliculas.models import Contenido, Plataforma
 class ContenidoSerializer(serializers.ModelSerializer):
   class Meta:
     model = Contenido
-    fields = ['id','titulo', 'descripcion', 'activo', 'created_at']
+    fields = ['id','plataforma','titulo', 'descripcion', 'activo', 'created_at']
 
   
 class PlataformaSerializer(serializers.ModelSerializer):

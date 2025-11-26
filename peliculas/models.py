@@ -12,6 +12,7 @@ class Plataforma(models.Model):
     return self.nombre
 
 class Contenido(models.Model):
+  plataforma = models.ForeignKey('Plataforma', on_delete=models.CASCADE)
   titulo = models.CharField(max_length=100)
   descripcion = models.CharField(max_length=200)
   activo = models.BooleanField(default=True)
