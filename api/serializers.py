@@ -2,9 +2,15 @@ from rest_framework import serializers
 from peliculas.models import Pelicula
 
 class PeliculaSerializer(serializers.ModelSerializer):
+  tam_titulo = serializers.SerializerMethodField()
+
   class Meta:
     model = Pelicula
-    fields = ['id','titulo', 'descripcion', 'activo']
+    fields = ['id','titulo', 'descripcion', 'activo', 'tam_titulo']
+
+  #realizar un calculo o funcion especifica - SerializerMethodField
+  def get_tam_titulo(self, objecto):
+     return len(objecto.titulo)
 
   #VALIDACIONES
   def validate(self, data):
