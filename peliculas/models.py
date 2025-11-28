@@ -12,7 +12,7 @@ class Plataforma(models.Model):
     return self.nombre
 
 class Contenido(models.Model):
-  plataforma = models.ForeignKey('Plataforma', on_delete=models.CASCADE)
+  plataforma = models.ForeignKey('Plataforma', on_delete=models.CASCADE, related_name='contenidos')
   titulo = models.CharField(max_length=100)
   descripcion = models.CharField(max_length=200)
   activo = models.BooleanField(default=True)
@@ -23,3 +23,18 @@ class Contenido(models.Model):
 
   def __str__(self):
     return self.titulo
+  
+class Resena(models.Model):
+  puntuacion = models.PositiveSmallIntegerField()
+  descripcion = models.CharField(max_length=200, null=True, blank=True)
+  contenido = models.ForeignKey('Contenido', on_delete=models.CASCADE, related_name="resenas") #contenido se relaciona con reseñas
+  activo = models.BooleanField(default=True)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now_add=True)
+
+  class Meta:
+      db_table = 'resena'
+
+  def __str__(self):
+    return str(self.puntuacion)
+

@@ -1,13 +1,32 @@
 from rest_framework import serializers
-from peliculas.models import Contenido, Plataforma
+from django.core.validators import MinValueValidator, MaxValueValidator
+from peliculas.models import Contenido, Plataforma, Resena
+
+class ResenaSerializer(serializers.ModelSerializer):
+  puntuacion = serializers.IntegerField(
+    validators=[MinValueValidator(1), MaxValueValidator(5)]
+  )
+  class Meta:
+    model = Resena
+    fields = ['puntuacion','descripcion','activo','created_at','updated_at']
+
 
 class ContenidoSerializer(serializers.ModelSerializer):
+  resenas = ResenaSerializer(many= True, read_only = True ) 
+  #resenas = serializers.StringRelatedField(many=True)
   class Meta:
     model = Contenido
-    fields = ['id','plataforma','titulo', 'descripcion', 'activo', 'created_at']
+    fields = ['id','plataforma','titulo', 'descripcion', 'activo', 'created_at','resenas']
 
   
 class PlataformaSerializer(serializers.ModelSerializer):
+  #Nested relationships
+  #contenidos = ContenidoSerializer(many=True, read_only=True)
+
+  #StringRelatedField
+  contenidos = serializers.StringRelatedField(many=True)
+
   class Meta:
     model = Plataforma
-    fields = ["id","nombre",'acerca','sitio_web']
+    fields = ["id","nombre",'acerca','sitio_web', 'contenidos']
+    #fields = ["nombre",'contenidos']
