@@ -12,9 +12,21 @@ from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import generics
 
-class ResenaList(generics.ListCreateAPIView):
-    queryset = Resena.objects.all()
+class ResenaCreate(generics.CreateAPIView):
     serializer_class = ResenaSerializer
+
+    def perform_create(self, serializer):
+        pk = self.kwargs.get("pk")
+        contenido = Contenido.objects.get(pk=pk)
+        serializer.save(contenido=contenido)
+
+class ResenaList(generics.ListAPIView):
+    #queryset = Resena.objects.all()
+    serializer_class = ResenaSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Resena.objects.filter(contenido_id = pk)
 
 class ResenaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Resena.objects.all()
