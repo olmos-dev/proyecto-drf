@@ -8,7 +8,7 @@ class ResenaSerializer(serializers.ModelSerializer):
   )
   class Meta:
     model = Resena
-    fields = ['puntuacion','descripcion','activo','created_at','updated_at']
+    fields = ['puntuacion','descripcion','activo','created_at','updated_at','contenido']
 
 
 class ContenidoSerializer(serializers.ModelSerializer):
