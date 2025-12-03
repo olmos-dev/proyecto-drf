@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Plataforma(models.Model):
   nombre = models.CharField(max_length=30)
@@ -25,6 +26,7 @@ class Contenido(models.Model):
     return self.titulo
   
 class Resena(models.Model):
+  usuario = models.ForeignKey(User, on_delete=models.CASCADE)
   puntuacion = models.PositiveSmallIntegerField()
   descripcion = models.CharField(max_length=200, null=True, blank=True)
   contenido = models.ForeignKey('Contenido', on_delete=models.CASCADE, related_name="resenas") #contenido se relaciona con reseñas

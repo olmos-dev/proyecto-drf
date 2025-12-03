@@ -6,10 +6,11 @@ class ResenaSerializer(serializers.ModelSerializer):
   puntuacion = serializers.IntegerField(
     validators=[MinValueValidator(1), MaxValueValidator(5)]
   )
+  usuario = serializers.StringRelatedField(read_only = True) 
   class Meta:
     model = Resena
-    fields = ['puntuacion','descripcion','activo','created_at','updated_at','contenido']
-
+    
+    fields = ['puntuacion','descripcion','activo','created_at','updated_at','usuario']
 
 class ContenidoSerializer(serializers.ModelSerializer):
   resenas = ResenaSerializer(many= True, read_only = True ) 

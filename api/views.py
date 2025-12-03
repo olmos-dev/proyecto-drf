@@ -11,14 +11,28 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import generics
+from rest_framework.exceptions import ValidationError
 
 class ResenaCreate(generics.CreateAPIView):
     serializer_class = ResenaSerializer
 
+    def get_queryset(self):
+        return Resena.objects.all()
+    
     def perform_create(self, serializer):
         pk = self.kwargs.get("pk")
         contenido = Contenido.objects.get(pk=pk)
-        serializer.save(contenido=contenido)
+
+        usuario = self.request.user
+        queryset = Resena.objects.filter(
+            contenido_id = contenido,
+            usuario_id = usuario.id
+        )
+
+        if queryset.exists():
+            raise ValidationError("Ya has escrito una reseña")
+        
+        serializer.save(contenido=contenido, usuario_id = usuario.id)
 
 class ResenaList(generics.ListAPIView):
     #queryset = Resena.objects.all()
