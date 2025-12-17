@@ -12,6 +12,7 @@ from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
 
 class ResenaCreate(generics.CreateAPIView):
     serializer_class = ResenaSerializer
@@ -35,6 +36,7 @@ class ResenaCreate(generics.CreateAPIView):
         serializer.save(contenido=contenido, usuario_id = usuario.id)
 
 class ResenaList(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
     #queryset = Resena.objects.all()
     serializer_class = ResenaSerializer
 
