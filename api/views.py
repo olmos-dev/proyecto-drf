@@ -7,12 +7,14 @@ from api.serializers import (
     PlataformaSerializer, 
     ResenaSerializer
 )
+
+from api.permissions import AdminOrReadOnly, ReviewUserOrReadOnly
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.exceptions import ValidationError
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 
 class ResenaCreate(generics.CreateAPIView):
     serializer_class = ResenaSerializer
@@ -47,6 +49,7 @@ class ResenaList(generics.ListAPIView):
 class ResenaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Resena.objects.all()
     serializer_class = ResenaSerializer
+    permission_classes = [ReviewUserOrReadOnly]
 
 
 """
