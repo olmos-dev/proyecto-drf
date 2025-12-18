@@ -35,6 +35,15 @@ class ResenaCreate(generics.CreateAPIView):
         if queryset.exists():
             raise ValidationError("Ya has escrito una reseña")
         
+        #calculo de la media
+        if contenido.numero_calif == 0:
+            contenido.avg_calif = serializer.validated_data["puntuacion"]
+        else:
+            contenido.avg_calif = (contenido.avg_calif + serializer.validated_data["puntuacion"]) /2
+            
+        contenido.numero_calif = contenido.numero_calif + 1
+        contenido.save()
+            
         serializer.save(contenido=contenido, usuario_id = usuario.id)
 
 class ResenaList(generics.ListAPIView):

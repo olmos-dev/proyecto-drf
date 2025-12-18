@@ -17,7 +17,8 @@ class ContenidoSerializer(serializers.ModelSerializer):
   #resenas = serializers.StringRelatedField(many=True)
   class Meta:
     model = Contenido
-    fields = ['id','plataforma','titulo', 'descripcion', 'activo', 'created_at','resenas']
+    fields = ['id','plataforma','titulo', 'descripcion', 'activo', 'created_at','resenas','avg_calif','numero_calif']
+    #fields = '__all__'
 
   
 class PlataformaSerializer(serializers.ModelSerializer):

@@ -17,6 +17,8 @@ class Contenido(models.Model):
   titulo = models.CharField(max_length=100)
   descripcion = models.CharField(max_length=200)
   activo = models.BooleanField(default=True)
+  avg_calif = models.FloatField(default=0)
+  numero_calif = models.IntegerField(default=0)
   created_at = models.DateTimeField(auto_now_add=True)
   
   class Meta:
