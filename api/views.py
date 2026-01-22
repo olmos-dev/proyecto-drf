@@ -18,6 +18,7 @@ from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 
 class ResenaCreate(generics.CreateAPIView):
     serializer_class = ResenaSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Resena.objects.all()
@@ -47,7 +48,7 @@ class ResenaCreate(generics.CreateAPIView):
         serializer.save(contenido=contenido, usuario_id = usuario.id)
 
 class ResenaList(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
     #queryset = Resena.objects.all()
     serializer_class = ResenaSerializer
 
@@ -81,6 +82,8 @@ class ResenaDetail(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.Dest
 """
     
 class ListarContenidoApiView(APIView):
+    permission_classes = [AdminOrReadOnly]
+
     def get(self, request):
         contenidos = Contenido.objects.all()
         serializador = ContenidoSerializer(contenidos, many=True)
@@ -94,6 +97,8 @@ class ListarContenidoApiView(APIView):
         return Response(serializador.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
     
 class DetalleContenidoApiView(APIView):
+    permission_classes = [AdminOrReadOnly]
+
     def get(self, request, pk):
         try:
             contenido = Contenido.objects.get(pk=pk)
@@ -127,6 +132,8 @@ class DetalleContenidoApiView(APIView):
 
 
 class ListarPlataformaApiView(APIView):
+    permission_classes = [AdminOrReadOnly]
+
     def get(self, request):
         plataformas = Plataforma.objects.all()
         serializador = PlataformaSerializer(plataformas, many=True)
@@ -141,6 +148,8 @@ class ListarPlataformaApiView(APIView):
     
 
 class DetallePlataformaApiView(APIView):
+    permission_classes = [AdminOrReadOnly]
+
     def get(self, request, pk):
         try:
             plataforma = Plataforma.objects.get(pk=pk)
