@@ -10,9 +10,9 @@ Este proyecto es una API construida con **Django** y **Django REST Framework**.
    
    cd mi_proyecto_drf
 ## Descripcion 
-# El usuario administrador con staff activo es quien puede activar o desactivar las reseñas para que sean mostradas o no según del caso
-# El administrador es quien solo agrega la plataforma y el contenido
-# Cada usuario solo puede escribir una reseña por contenido, él es el único que puede hacer modificar su reseña
+* El usuario administrador con staff activo es quien puede activar o desactivar las reseñas para que sean mostradas o no según del caso
+* El administrador es quien solo agrega la plataforma y el contenido
+* Cada usuario solo puede escribir una reseña por contenido, él es el único que puede modificar su reseña
 
 ## Modelo relacional 
 ![db](bd.png "Database - Social Network")
