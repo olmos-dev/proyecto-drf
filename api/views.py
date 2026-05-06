@@ -48,7 +48,7 @@ class ResenaCreate(generics.CreateAPIView):
         serializer.save(contenido=contenido, usuario_id = usuario.id)
 
 class ResenaList(generics.ListAPIView):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     #queryset = Resena.objects.all()
     serializer_class = ResenaSerializer
 
