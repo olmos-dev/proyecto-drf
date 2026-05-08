@@ -26,15 +26,15 @@ def registration_view(request):
       data['username'] = cuenta.username
       data['email'] = cuenta.email
       
-      #token, created = Token.objects.get_or_create(user=cuenta)
-      #data["token"] = token.key
+      token, created = Token.objects.get_or_create(user=cuenta)
+      data["token"] = token.key
 
-      refresh = RefreshToken.for_user(cuenta) #se le pasa el user
+      #refresh = RefreshToken.for_user(cuenta) #se le pasa el user
 
-      data["token"] = {
-          'refresh': str(refresh),
-          'access': str(refresh.access_token),
-      }
+      #data["token"] = {
+      #    'refresh': str(refresh),
+      #    'access': str(refresh.access_token),
+      #}
 
     else:
       data = serializer.errors

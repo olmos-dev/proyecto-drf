@@ -15,6 +15,7 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 class ResenaCreate(generics.CreateAPIView):
     serializer_class = ResenaSerializer
@@ -48,9 +49,10 @@ class ResenaCreate(generics.CreateAPIView):
         serializer.save(contenido=contenido, usuario_id = usuario.id)
 
 class ResenaList(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
     #queryset = Resena.objects.all()
     serializer_class = ResenaSerializer
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -60,6 +62,7 @@ class ResenaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Resena.objects.all()
     serializer_class = ResenaSerializer
     permission_classes = [ReviewUserOrReadOnly]
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
 
 
 """
