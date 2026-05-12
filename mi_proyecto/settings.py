@@ -160,7 +160,10 @@ REST_FRAMEWORK = {
     #],
     'DEFAULT_THROTTLE_RATES': {
         'anon': '2/day',
-        'user': '4/day'
+        'user': '4/day',
+        'crear-resena':'2/day',
+        'listar-resena':'5/day',
+        'detalle-resena':'2/day'
     }
 
 }
