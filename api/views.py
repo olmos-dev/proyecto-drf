@@ -16,8 +16,28 @@ from rest_framework import generics
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle, ScopedRateThrottle
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 from api.throttling import CrearResenaThrottle, ListarResenaThrottle
+
+
+class UsuarioResena(generics.ListAPIView):
+    #permission_classes = [IsAuthenticated]
+    #queryset = Resena.objects.all()
+    serializer_class = ResenaSerializer
+    #throttle_classes = [UserRateThrottle, AnonRateThrottle]
+    #throttle_classes = [ListarResenaThrottle, AnonRateThrottle]
+
+    #def get_queryset(self):
+    #    username = self.kwargs['username']
+    #    return Resena.objects.filter(usuario__username = username)
+
+    def get_queryset(self):
+        username = self.request.query_params.get('username', None)
+        return Resena.objects.filter(usuario__username = username)
+
+
 
 class ResenaCreate(generics.CreateAPIView):
     serializer_class = ResenaSerializer
@@ -57,6 +77,8 @@ class ResenaList(generics.ListAPIView):
     serializer_class = ResenaSerializer
     #throttle_classes = [UserRateThrottle, AnonRateThrottle]
     throttle_classes = [ListarResenaThrottle, AnonRateThrottle]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["usuario__username", "activo"]
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -89,7 +111,18 @@ class ResenaDetail(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.Dest
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 """
+class ListarContenido(generics.ListAPIView):
+    queryset = Contenido.objects.all()
+    serializer_class = ContenidoSerializer#ContenidoSerializer(contenidos, many=True)
+    #filter_backends = [DjangoFilterBackend]
+    #filterset_fields = ['titulo','plataforma__nombre']
+    #filter_backends = [filters.SearchFilter]
+    #search_fields = ['titulo','plataforma__nombre']
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ["avg_calif"]
     
+
+
 class ListarContenidoApiView(APIView):
     permission_classes = [AdminOrReadOnly]
 

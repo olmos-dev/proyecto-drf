@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'peliculas',
     'rest_framework.authtoken',
     'user_app',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -147,6 +148,10 @@ REST_FRAMEWORK = {
     #    'rest_framework.permissions.IsAuthenticated',
     #]
     
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         #'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
@@ -159,11 +164,11 @@ REST_FRAMEWORK = {
     #    'rest_framework.throttling.UserRateThrottle'
     #],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '2/day',
-        'user': '4/day',
-        'crear-resena':'2/day',
-        'listar-resena':'5/day',
-        'detalle-resena':'2/day'
+        'anon': '100/day',
+        'user': '100/day',
+        'crear-resena':'100/day',
+        'listar-resena':'100/day',
+        'detalle-resena':'100/day'
     }
 
 }
