@@ -21,7 +21,7 @@ from rest_framework import filters
 
 from api.throttling import CrearResenaThrottle, ListarResenaThrottle
 
-from api.pagination import ListarContenidoPagination
+from api.pagination import ListarContenidoPagination, ListarContenidoLimitOffsetPagination
 
 class UsuarioResena(generics.ListAPIView):
     #permission_classes = [IsAuthenticated]
@@ -115,7 +115,7 @@ class ResenaDetail(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.Dest
 class ListarContenido(generics.ListAPIView):
     queryset = Contenido.objects.all()
     serializer_class = ContenidoSerializer#ContenidoSerializer(contenidos, many=True)
-    pagination_class = ListarContenidoPagination
+    pagination_class =  ListarContenidoLimitOffsetPagination#ListarContenidoPagination
     #filter_backends = [DjangoFilterBackend]
     #filterset_fields = ['titulo','plataforma__nombre']
     #filter_backends = [filters.SearchFilter]
