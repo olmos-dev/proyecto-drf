@@ -172,7 +172,11 @@ REST_FRAMEWORK = {
         'crear-resena':'100/day',
         'listar-resena':'100/day',
         'detalle-resena':'100/day'
-    }
+    },
+
+    #'DEFAULT_RENDERER_CLASSES': [
+        #'rest_framework.renderers.JSONRenderer',
+    #],
 
    
 
