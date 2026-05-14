@@ -1,4 +1,4 @@
-from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination, CursorPagination
 
 class ListarContenidoPagination(PageNumberPagination):
   page_size = 10
@@ -9,3 +9,9 @@ class ListarContenidoPagination(PageNumberPagination):
 class ListarContenidoLimitOffsetPagination(LimitOffsetPagination):
   default_limit = 5
   max_limit = 10
+  limit_query_param = 'limit'
+  offset_query_param = 'start'
+
+class ListarContenidoCursorPagination(CursorPagination):
+  page_size = 10
+  ordering = 'created_at'
