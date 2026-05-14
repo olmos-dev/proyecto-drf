@@ -13,12 +13,13 @@ class ResenaSerializer(serializers.ModelSerializer):
     fields = ['puntuacion','descripcion','activo','created_at','updated_at','usuario']
 
 class ContenidoSerializer(serializers.ModelSerializer):
-  resenas = ResenaSerializer(many= True, read_only = True ) 
+  #resenas = ResenaSerializer(many= True, read_only = True ) 
   #resenas = serializers.StringRelatedField(many=True)
+  plataforma = serializers.CharField(source="plataforma.nombre")
   class Meta:
     model = Contenido
-    fields = ['id','plataforma','titulo', 'descripcion', 'activo', 'created_at','resenas','avg_calif','numero_calif']
-    #fields = '__all__'
+    #fields = ['id','plataforma','titulo', 'descripcion', 'activo', 'created_at','resenas','avg_calif','numero_calif']
+    fields = '__all__'
 
   
 class PlataformaSerializer(serializers.ModelSerializer):
