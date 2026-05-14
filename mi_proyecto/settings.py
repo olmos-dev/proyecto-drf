@@ -148,6 +148,9 @@ REST_FRAMEWORK = {
     #    'rest_framework.permissions.IsAuthenticated',
     #]
     
+    #'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    #'PAGE_SIZE': 3,
+    
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
@@ -170,6 +173,8 @@ REST_FRAMEWORK = {
         'listar-resena':'100/day',
         'detalle-resena':'100/day'
     }
+
+   
 
 }
 
